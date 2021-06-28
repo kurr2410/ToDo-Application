@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div class="row top">
+    <div class="col-lg-12 header">
+      <label class="headerLabel">ToDo App</label>
+    </div>
+  </div>
+  <div class="row body">
+    <div class="col-lg-2 side-bar">
+      <div style="text-align:center">
+        <label class="headerLabel">Bucket List</label>
+      </div>
+      <div style="text-align:center">
+        <label style="margin-left:10px">Pagination</label>
+        <input type="text" style="width:30%;margin-left:10px" [(ngModel)]="numberPerPage" (keydown.enter)="addPagination()" >
+      </div>
+      <div *ngFor="let bucket of pageList">
+        <div class="bucketList" (click)="openBucket(bucket)">{{bucket}}</div>
+      </div>
+      <div class="paginationIcons">
+        <i class="fa fa-angle-left" id="first" (click)="firstPage()"></i>&nbsp;&nbsp;&nbsp;
+        <i class="fa fa-angle-double-left" id="previous" (click)="previousPage()"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <i class="fa fa-angle-double-right" id="next" (click)="nextPage()"></i>&nbsp;&nbsp;&nbsp;
+        <i class="fa fa-angle-right" id="last" (click)="lastPage()"></i>
+      </div>
+      <div class="inputBucket">
+        <input type="text" class="bucketList" style="width:90%; cursor:pointer" placeholder="New Bucket" (keydown.enter)="addBucket($event)" >
+      </div>
+      </div>
+    <div class="col-lg-10 centre">
+    <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

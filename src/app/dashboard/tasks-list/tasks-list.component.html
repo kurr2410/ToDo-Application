@@ -1,0 +1,96 @@
+<div class="container-fluid" style="height:100%">
+  <div class="row header">
+    <div class="col-lg-8" >
+      <label for="bucketName" style="text-align: center;" >{{bucketName}}</label>
+    </div>
+    <div class="col-lg-1" style="font-size: 20px;
+    margin: 15px 0px 0px 0px;">Filter</div>
+      <div class="col-lg-2">
+        <select class="form-control filter" [(ngModel)]="filterKey" (change)="filter()">
+          <option value="" selected disabled hidden>Select</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="None">None</option>
+        </select>
+      </div>
+      <div class="col-lg-1">
+        <i class="fa fa-trash" (click)="deleteTasks()"></i>
+      </div>
+  </div>
+  <div class="row" style="height:100%">
+    <div class="col-lg-12" style="margin:0px 10px;">
+      <table id="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Task</th>
+            <th>Date Created
+              <i *ngIf="sort" class="fa fa-sort-desc" style="float:right; margin: 5px;" (click)="sortOnDateCreated()" aria-hidden="true"></i>
+              <i *ngIf="!sort" class="fa fa-sort-asc" style="float:right; margin: 5px;" (click)="sortOnDateCreated()" aria-hidden="true"></i>
+            </th>
+            <th>Last Date</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of taskList let i=index">
+            <td>
+              <input type="checkbox" style="margin: 5px;" id="" name="" value="{{row.id}}" (change)="selectedTasks($event)">
+            </td>
+            <td>
+              {{row.taskName}}
+            </td>
+            <td>
+              {{row.dateCreated}}
+            </td>
+            <td>
+              {{row.lastDate}}
+            </td>
+            <td>
+              {{row.status}}
+            </td>
+            <td>
+              {{row.priority}}
+            </td>
+            <td style="text-align: center;">
+              <i *ngIf="editToggle" class="fa fa-edit" (click)="editTask(row,i)"></i>
+              <i *ngIf="!editToggle" class="fa fa-edit" style="color:grey"></i>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" hidden>
+            </td>
+            <td *ngFor="let key of keyList">
+
+              <textarea *ngIf="key=='taskName'" [(ngModel)]="task[key]" class="form-control scroll" required></textarea>
+              <input *ngIf="key=='dateCreated' || key=='lastDate'" type="date" [(ngModel)]="task[key]">
+              <div *ngIf="key=='status'">
+                <select class="form-control" [(ngModel)]="task[key]">
+                  <option value="" selected disabled hidden>Select</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Complete">Complete</option>
+                  <option value="WIP">WIP</option>
+                </select>
+              </div>
+              <div *ngIf="key=='priority'">
+                <select class="form-control" [(ngModel)]="task[key]">
+                  <option value="" selected disabled hidden>Select</option>
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+              </div>
+            </td>
+            <td style="text-align: center;">
+              <i class="fa fa-plus" (click)="addClicked()"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
